@@ -16,10 +16,12 @@ int cost[NNODE][NNODE] = {
 void Init(int *set, int (*cost)[NNODE], int *neighbor, int *p,
                     int *Dcost, int root);
 
+// *** Helpers *** //
 static int IsNeighbor(int *Neighbor);
 static int IsFull(int *set);
 static int IsSet(int *set, int index);
 static char int2sym(int node);
+// *** End Helpers *** //
 
 int GetNeighbor(int *neighbor);
 int GetMinCostNode(int *set, int *Dcost, int (*cost)[NNODE]);
@@ -73,8 +75,7 @@ void Init(int *set, int (*cost)[NNODE], int *neighbor, int *p, int *Dcost, int r
       p[i] = -1;
     } else {
       p[i] = root;
-      if (root != i)
-        InsertNodeToNeighbor(neighbor, i);
+      if (root != i) InsertNodeToNeighbor(neighbor, i);
     }
   }
 }
@@ -103,29 +104,29 @@ static char int2sym(int node) { return nodes[node]; }
 // *** End Helpers *** //
 
 int GetNeighbor(int *neighbor) {
-  int vertex = 0;
+  int node = 0;
   int i = 0;
-  while (!vertex) {
-    if (neighbor[i] == -1) vertex = i;
+  while (!node) {
+    if (neighbor[i] == -1) node = i;
     i++;
   }
-  int ret = neighbor[vertex - 1];
-  neighbor[vertex - 1] = -1;
+  int ret = neighbor[node - 1];
+  neighbor[node - 1] = -1;
   return ret;
 }
 
 int GetMinCostNode(int *set, int *Dcost, int (*cost)[NNODE]) {
   int min = INF;
-  int vertex = INF;
+  int node = INF;
   for (int i = 0; i < NNODE; i++) {
     if (min >= Dcost[i] && !IsSet(set, i) && Dcost[i] > 0) {
-      vertex = i;
+      node = i;
       min = Dcost[i];
     }
   }
-  if (vertex == INF) printf("Something wrong.....\n");
+  if (node == INF) printf("Something wrong.....\n");
 
-  return vertex;
+  return node;
 }
 
 void InsertNodeToSet(int *set, int index) {
