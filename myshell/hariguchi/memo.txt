@@ -1,0 +1,4 @@
+ステップ1
+1. 入力からlineを読み取る。getlineを使う。=> char *sh_read_line(void)
+2. それらをスペース（タブなども）で分解して、args（引数の集合体）にいれる。strtokを使う。 => char **sh_split_line(char *line)
+3. cd、exitを実装する。それ以外のコマンドにかんしては、execvp使用。 => int sh_execute(char **args), int sh_launch(char **args), int sh_cd(char **args), int sh_exit(char **args)
